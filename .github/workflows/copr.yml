@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: 2022 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+#
+# SPDX-License-Identifier: MIT
+
+name: COPR
+
+on:
+  workflow_call:
+    secrets:
+      COPR_WEBHOOK_URL:
+        required: true
+
+jobs:
+  copr:
+    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'copr skip')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Rebuild package
+        run: curl -X POST ${{ secrets.COPR_WEBHOOK_URL }}

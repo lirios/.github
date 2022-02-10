@@ -1,0 +1,61 @@
+# SPDX-FileCopyrightText: 2022 Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+#
+# SPDX-License-Identifier: MIT
+
+name: Checks
+
+on:
+  workflow_call:
+    inputs:
+      enable_wip:
+        required: false
+        type: boolean
+      enable_xdg:
+        required: false
+        type: boolean
+      enable_qml:
+        required: false
+        type: boolean
+      enable_reuse:
+        required: false
+        type: boolean
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  wip:
+    if: "inputs.enable_wip && !contains(github.event.head_commit.message, 'ci skip') && github.event_name == 'pull_request'"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Work in progress
+        uses: wip/action@master
+  xdg:
+    if: "inputs.enable_xdg && !contains(github.event.head_commit.message, 'ci skip')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - name: Validate XDG files
+        uses: liri-infra/xdg-validator-action@master
+        with:
+          strict: false
+  qml:
+    if: "inputs.enable_qml && !contains(github.event.head_commit.message, 'ci skip')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - name: Validate QML and JavaScript files
+        uses: liri-infra/qmllint-action@master
+  reuse:
+    if: "inputs.enable_reuse && !contains(github.event.head_commit.message, 'ci skip')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - name: REUSE compliance check
+        uses: fsfe/reuse-action@v1.1
