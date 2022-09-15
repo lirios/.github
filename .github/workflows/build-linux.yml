@@ -39,7 +39,7 @@ jobs:
           - gcc
           - clang
         container:
-          - suse-qt515
+          - ci-suse-qt515
     runs-on: ubuntu-latest
     container:
       image: liridev/${{ matrix.container }}
@@ -58,7 +58,7 @@ jobs:
         id: qt_version
         shell: bash
         run: |
-          qtverid=`echo "${{ matrix.container }}" | sed -e 's,suse-qt,,g'`
+          qtverid=`echo "${{ matrix.container }}" | sed -e 's,ci-suse-qt,,g'`
           echo "##[set-output name=id;]${qtverid}"
       - uses: actions/checkout@v2
       - uses: actions/checkout@v2
@@ -68,6 +68,7 @@ jobs:
       - name: Build dependencies
         run: |
           set -x
+          zypper --non-interactive install extra-cmake-modules sudo
           if [ "${{ matrix.compiler }}" == "clang" ]; then
             export CC=clang
             export CXX=clang++
