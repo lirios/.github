@@ -46,7 +46,7 @@ jobs:
           - ci-suse-qt515
     runs-on: ubuntu-latest
     container:
-      image: liridev/${{ matrix.container }}
+      image: kdeorg/${{ matrix.container }}
     steps:
       - name: Extract branch name
         id: extract_branch
