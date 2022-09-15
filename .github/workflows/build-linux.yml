@@ -18,6 +18,10 @@ on:
         type: string
         default: "-DLIRI_ENABLE_CLAZY:BOOL=ON"
         required: false
+      dependencies:
+        type: string
+        default: ""
+        required: false
       build_dependencies:
         type: string
         default: "cmake-shared"
@@ -68,7 +72,7 @@ jobs:
       - name: Build dependencies
         run: |
           set -x
-          zypper --non-interactive install extra-cmake-modules sudo
+          zypper --non-interactive install extra-cmake-modules sudo ${{ inputs.dependencies }}
           if [ "${{ matrix.compiler }}" == "clang" ]; then
             export CC=clang
             export CXX=clang++
