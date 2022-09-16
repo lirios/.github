@@ -64,6 +64,10 @@ jobs:
         run: |
           qtverid=`echo "${{ matrix.container }}" | sed -e 's,ci-suse-qt,,g'`
           echo "##[set-output name=id;]${qtverid}"
+      - name: Dependencies
+        run: |
+          set -x
+          zypper --non-interactive install extra-cmake-modules sudo ${{ inputs.dependencies }}
       - uses: actions/checkout@v2
       - uses: actions/checkout@v2
         with:
@@ -72,7 +76,6 @@ jobs:
       - name: Build dependencies
         run: |
           set -x
-          zypper --non-interactive install extra-cmake-modules sudo ${{ inputs.dependencies }}
           if [ "${{ matrix.compiler }}" == "clang" ]; then
             export CC=clang
             export CXX=clang++
