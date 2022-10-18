@@ -43,7 +43,7 @@ jobs:
           - gcc
           - clang
         container:
-          - liridev/suse-qt515
+          - liridev/suse-qt515:latest
     runs-on: ubuntu-latest
     container:
       image: ${{ matrix.container }}
