@@ -80,7 +80,7 @@ jobs:
             export CC=clang
             export CXX=clang++
           fi
-          bash -x ./__ci_scripts/build-deps ${{ steps.extract_branch.outputs.branch }} ${{ inputs.build_dependencies }}
+          bash -x ./__ci_scripts/build-deps ${{ steps.extract_branch.outputs.branch }} "${{ inputs.build_dependencies }}"
       - uses: ammaraskar/gcc-problem-matcher@master
       - name: Build
         run: |
