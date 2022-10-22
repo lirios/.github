@@ -41,7 +41,7 @@ jobs:
           version: ${{ matrix.qt }}
           arch: ${{ matrix.compiler }}
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Build
         run: |
           # Fluid
@@ -75,7 +75,7 @@ jobs:
     needs:
       - windows
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Create release
         id: create_release
         uses: actions/create-release@v1

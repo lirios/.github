@@ -68,8 +68,8 @@ jobs:
         run: |
           set -x
           sudo zypper --non-interactive install extra-cmake-modules ${{ inputs.dependencies }}
-      - uses: actions/checkout@v2
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           repository: liri-infra/ci-scripts
           path: __ci_scripts

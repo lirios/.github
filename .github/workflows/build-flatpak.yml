@@ -23,7 +23,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, 'ci skip')"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 1
       - name: Install dependencies
@@ -59,7 +59,7 @@ jobs:
     needs:
       - flatpak
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Create release
         id: create_release
         uses: actions/create-release@v1
