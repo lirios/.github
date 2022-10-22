@@ -53,17 +53,17 @@ jobs:
         shell: bash
         run: |
           if [ -n "${{ github.base_ref }}" ]; then
-            echo "##[set-output name=branch;]${{ github.base_ref }}"
+            echo "branch=${{ github.base_ref }}" >> $GITHUB_OUTPUT
           else
             github_ref=${{ github.ref }}
-            echo "##[set-output name=branch;]${github_ref##*/}"
+            echo "branch=${github_ref##*/}" >> $GITHUB_OUTPUT
           fi
       - name: Qt version identifier
         id: qt_version
         shell: bash
         run: |
           qtverid=`echo "${{ matrix.container }}" | sed -e 's,suse-qt,,g'`
-          echo "##[set-output name=id;]${qtverid}"
+          echo "id=${qtverid}" >> $GITHUB_OUTPUT
       - name: Dependencies
         run: |
           set -x
