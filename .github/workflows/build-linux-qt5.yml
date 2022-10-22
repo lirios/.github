@@ -44,6 +44,9 @@ jobs:
           - clang
         container:
           - liridev/suse-qt515:latest
+        include:
+          - container: liridev/suse-qt515:latest
+            qtverid: 515
     runs-on: ubuntu-latest
     container:
       image: ${{ matrix.container }}
@@ -62,8 +65,7 @@ jobs:
         id: qt_version
         shell: bash
         run: |
-          qtverid=`echo "${{ matrix.container }}" | sed -e 's,suse-qt,,g'`
-          echo "id=${qtverid}" >> $GITHUB_OUTPUT
+          echo "id=${{ matrix.qtverid }}" >> $GITHUB_OUTPUT
       - name: Dependencies
         run: |
           set -x
