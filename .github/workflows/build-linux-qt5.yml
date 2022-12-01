@@ -30,6 +30,10 @@ on:
         type: boolean
         default: false
         required: false
+      enable_parallel_build:
+        type: boolean
+        default: true
+        required: false
 
 env:
   CLAZY_CHECKS: "${{ inputs.clazy_checks }}"
@@ -101,7 +105,11 @@ jobs:
           else
             cmake .. -DCMAKE_INSTALL_PREFIX=/usr $args ${{ inputs.cmake_arguments_gcc }}
           fi
-          make -j $(getconf _NPROCESSORS_ONLN)
+          if [ "${{ inputs.enable_parallel_build }}" == "true" ]; then
+            make -j $(getconf _NPROCESSORS_ONLN)
+          else
+            make
+          fi
           sudo make install
       - name: Test
         if: "inputs.enable_autotests"
