@@ -49,16 +49,10 @@ jobs:
           - liridev/fedora:latest
         include:
           - container: liridev/fedora:latest
-            qtverid: 66
     runs-on: ubuntu-latest
     container:
       image: ${{ matrix.container }}
     steps:
-      - name: Qt version identifier
-        id: qt_version
-        shell: bash
-        run: |
-          echo "id=${{ matrix.qtverid }}" >> $GITHUB_OUTPUT
       - name: Dependencies
         run: |
           set -x
