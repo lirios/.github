@@ -54,16 +54,6 @@ jobs:
     container:
       image: ${{ matrix.container }}
     steps:
-      - name: Extract branch name
-        id: extract_branch
-        shell: bash
-        run: |
-          if [ -n "${{ github.base_ref }}" ]; then
-            echo "branch=${{ github.base_ref }}" >> $GITHUB_OUTPUT
-          else
-            github_ref=${{ github.ref }}
-            echo "branch=${github_ref##*/}" >> $GITHUB_OUTPUT
-          fi
       - name: Qt version identifier
         id: qt_version
         shell: bash
@@ -85,7 +75,14 @@ jobs:
             export CC=clang
             export CXX=clang++
           fi
-          bash -x ./__ci_scripts/build-deps ${{ steps.extract_branch.outputs.branch }} "${{ inputs.build_dependencies }}"
+
+          if [ -n "${{ github.base_ref }}" ]; then
+            branch=${{ github.base_ref }}
+          else
+            github_ref=${{ github.ref }}
+            branch=${github_ref##*/}
+          fi
+          bash -x ./__ci_scripts/build-deps $branch "${{ inputs.build_dependencies }}"
       - uses: ammaraskar/gcc-problem-matcher@master
       - name: Build
         run: |
