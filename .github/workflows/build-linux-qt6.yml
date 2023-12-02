@@ -46,9 +46,9 @@ jobs:
           - gcc
           - clang
         container:
-          - liridev/suse-qt66:latest
+          - liridev/fedora:latest
         include:
-          - container: liridev/suse-qt66:latest
+          - container: liridev/fedora:latest
             qtverid: 66
     runs-on: ubuntu-latest
     container:
@@ -72,7 +72,7 @@ jobs:
       - name: Dependencies
         run: |
           set -x
-          sudo zypper --non-interactive install extra-cmake-modules ${{ inputs.dependencies }}
+          sudo dnf install -y extra-cmake-modules ${{ inputs.dependencies }}
       - uses: actions/checkout@v3
       - uses: actions/checkout@v3
         with:
