@@ -56,7 +56,9 @@ jobs:
       - name: Dependencies
         run: |
           set -x
-          [ -n "${{ inputs.dependencies }}" ] && sudo dnf install -y ${{ inputs.dependencies }}
+          if [ -n "${{ inputs.dependencies }}" ]; then
+            sudo dnf install -y ${{ inputs.dependencies }}
+          fi
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
         with:
