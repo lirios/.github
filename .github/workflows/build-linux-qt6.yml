@@ -56,7 +56,7 @@ jobs:
       - name: Dependencies
         run: |
           set -x
-          sudo dnf install -y extra-cmake-modules ${{ inputs.dependencies }}
+          [ -n "${{ inputs.dependencies }}" ] && sudo dnf install -y ${{ inputs.dependencies }}
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
         with:
