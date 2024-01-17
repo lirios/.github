@@ -45,13 +45,9 @@ jobs:
         compiler:
           - gcc
           - clang
-        container:
-          - liridev/fedora:latest
-        include:
-          - container: liridev/fedora:latest
     runs-on: ubuntu-latest
     container:
-      image: ${{ matrix.container }}
+      image: liridev/fedora:latest
     steps:
       - name: Dependencies
         run: |
