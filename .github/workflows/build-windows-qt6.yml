@@ -53,7 +53,7 @@ jobs:
           cd extra-cmake-modules
           mkdir build
           cd build
-          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=C:/Program\ Files/Liri
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=C:/Program\ Files/Liri
           cmake --build .
           cmake --install .
       - name: Build dependencies
@@ -70,7 +70,7 @@ jobs:
             cd $dep
             mkdir build
             cd build
-            cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=C:/Program\ Files/Liri $args
+            cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=C:/Program\ Files/Liri $args
             cmake --build .
             cmake --install .
             cd ../..
@@ -88,7 +88,7 @@ jobs:
           else
             args="-DBUILD_TESTING:BOOL=OFF"
           fi
-          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=C:/Program\ Files/Liri -DCMAKE_EXPORT_COMPILE_COMMANDS=ON $args ${{ inputs.cmake_arguments }}
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=C:/Program\ Files/Liri -DCMAKE_EXPORT_COMPILE_COMMANDS=ON $args ${{ inputs.cmake_arguments }}
           cmake --build .
       - name: Package
         run: |
