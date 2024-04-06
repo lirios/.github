@@ -34,7 +34,7 @@ jobs:
     if: "inputs.enable_xdg && !contains(github.event.head_commit.message, 'ci skip')"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Validate XDG files
@@ -45,7 +45,7 @@ jobs:
     if: "inputs.enable_qml && !contains(github.event.head_commit.message, 'ci skip')"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: Validate QML and JavaScript files
@@ -54,7 +54,7 @@ jobs:
     if: "inputs.enable_reuse && !contains(github.event.head_commit.message, 'ci skip')"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
       - name: REUSE compliance check
