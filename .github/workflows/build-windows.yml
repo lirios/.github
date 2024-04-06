@@ -12,7 +12,7 @@ on:
         required: true
       qt_version:
         type: string
-        default: "5.12.8"
+        default: "6.6"
         required: false
 
 env:
@@ -24,10 +24,10 @@ jobs:
     strategy:
       matrix:
         compiler:
-          - win32_msvc2017
+          - win64_msvc2019_64
         qt:
           - ${{ inputs.qt_version }}
-    runs-on: windows-2016
+    runs-on: windows-latest
     steps:
       - name: Cache Qt
         id: cache-qt
@@ -36,12 +36,12 @@ jobs:
           path: ../Qt
           key: ${{ runner.os }}-QtCache-${{ matrix.qt }}
       - name: Install Qt
-        uses: jurplel/install-qt-action@v2
+        uses: jurplel/install-qt-action@v3
         with:
           version: ${{ matrix.qt }}
           arch: ${{ matrix.compiler }}
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Build
         run: |
           # Fluid
@@ -75,7 +75,7 @@ jobs:
     needs:
       - windows
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Create release
         id: create_release
         uses: actions/create-release@v1
