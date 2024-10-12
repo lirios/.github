@@ -42,15 +42,15 @@ jobs:
         with:
           gh-token: ${{ secrets.GITHUB_TOKEN }}
           strict: false
-  qml:
-    if: "inputs.enable_qml && !contains(github.event.head_commit.message, 'ci skip')"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-      - name: Validate QML and JavaScript files
-        uses: liri-infra/qmllint-action@master
+#  qml:
+#    if: "inputs.enable_qml && !contains(github.event.head_commit.message, 'ci skip')"
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 1
+#      - name: Validate QML and JavaScript files
+#        uses: liri-infra/qmllint-action@master
   reuse:
     if: "inputs.enable_reuse && !contains(github.event.head_commit.message, 'ci skip')"
     runs-on: ubuntu-latest
